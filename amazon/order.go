@@ -70,7 +70,7 @@ type Address struct {
 }
 
 func (o *Order) Generalise() *generic.Order {
-	layout := "2006-01-02T15:04:05.000Z"
+	layout := "2006-01-02T15:04:05Z"
 	purchaseDate, err := time.Parse(layout, o.PurchaseDate)
 	if err != nil {
 		purchaseDate = time.Now()
