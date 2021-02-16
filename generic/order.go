@@ -8,6 +8,7 @@ type Order struct {
 	ChannelOrderId         string
 	PurchaseDate           time.Time
 	OrderStatus            string
+	CurrencyCode		   string
 	ItemsTotal             float64
 	ShippingTotal          float64
 	GrandTotal             float64
@@ -29,6 +30,13 @@ type Order struct {
 
 	PaymentMethod          string
 	PaymentExecutionDetail []PaymentExecutionDetailItem
+}
+
+func (o *Order) AddItem(item OrderItem) {
+	o.Items = append(o.Items, item)
+	o.ItemsTotal += item.ItemPrice - item.PromotionDiscount
+	o.ShippingTotal += item.ShippingPrice - item.ShippingDiscount
+	o.GrandTotal = o.ItemsTotal + o.ShippingTotal
 }
 
 type PaymentExecutionDetailItem struct {

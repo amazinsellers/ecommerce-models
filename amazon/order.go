@@ -15,7 +15,7 @@ type Order struct {
 	SalesChannel                    string
 	OrderChannel                    string
 	ShipServiceLevel                string
-	OrderTotal                      float64
+	OrderTotal                      Money
 	NumberOfItemsShipped            int
 	NumberOfItemsUnshipped          int
 	PaymentExecutionDetail          PaymentExecutionDetailItemList
@@ -96,31 +96,31 @@ func (o *Order) Generalise() *generic.Order {
 		earliestDeliveryDate = time.Now()
 	}
 
-	theOrder := &generic.Order {
-		ChannelOrderId: o.AmazonOrderId,
-		PurchaseDate: purchaseDate,
-		OrderStatus: o.OrderStatus,
-		IsBusinessOrder: o.IsBusinessOrder,
-		SalesChannel: o.SalesChannel,
-		OrderChannel: o.OrderChannel,
-		ShipService: o.ShipServiceLevel + " " + o.ShipmentServiceLevelCategory,
-		FulfillmentChannel: o.FulfillmentChannel,
-		NumberOfItemsShipped: o.NumberOfItemsShipped,
+	theOrder := &generic.Order{
+		ChannelOrderId:         o.AmazonOrderId,
+		PurchaseDate:           purchaseDate,
+		OrderStatus:            o.OrderStatus,
+		IsBusinessOrder:        o.IsBusinessOrder,
+		SalesChannel:           o.SalesChannel,
+		OrderChannel:           o.OrderChannel,
+		ShipService:            o.ShipServiceLevel + " " + o.ShipmentServiceLevelCategory,
+		FulfillmentChannel:     o.FulfillmentChannel,
+		NumberOfItemsShipped:   o.NumberOfItemsShipped,
 		NumberOfItemsUnshipped: o.NumberOfItemsUnshipped,
-		OrderType: o.OrderType,
-		EarliestShipDate: earliestShipDate,
-		LatestShipDate: latestShipDate,
-		LatestDeliveryDate: latestDeliveryDate,
-		EarliestDeliveryDate: earliestDeliveryDate,
-		ReplacedOrderId: o.ReplacedOrderId,
-		IsReplacementOrder: o.IsReplacementOrder,
-		PaymentMethod: o.PaymentMethod,
+		OrderType:              o.OrderType,
+		EarliestShipDate:       earliestShipDate,
+		LatestShipDate:         latestShipDate,
+		LatestDeliveryDate:     latestDeliveryDate,
+		EarliestDeliveryDate:   earliestDeliveryDate,
+		ReplacedOrderId:        o.ReplacedOrderId,
+		IsReplacementOrder:     o.IsReplacementOrder,
+		PaymentMethod:          o.PaymentMethod,
 		PaymentExecutionDetail: o.PaymentExecutionDetail,
+		CurrencyCode:           o.OrderTotal.CurrencyCode,
 	}
 
-	theOrder.Items = make([]generic.OrderItem, len(o.Items))
-	for i, v := range o.Items {
-		theOrder.Items[i] = *v.Generalise()
+	for _, v := range o.Items {
+		theOrder.AddItem(*v.Generalise())
 	}
 
 	return theOrder

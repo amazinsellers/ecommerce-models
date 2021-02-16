@@ -14,17 +14,17 @@ type OrderItem struct {
 	QuantityShipped            int
 	ProductInfo                ProductInfoDetail
 	PointsGranted              PointsGrantedDetail
-	ItemPrice                  float64
-	ShippingPrice              float64
-	ItemTax                    float64
-	ShippingTax                float64
-	ShippingDiscount           float64
-	ShippingDiscountTax        float64
-	PromotionDiscount          float64
-	PromotionDiscountTax       float64
+	ItemPrice                  Money
+	ShippingPrice              Money
+	ItemTax                    Money
+	ShippingTax                Money
+	ShippingDiscount           Money
+	ShippingDiscountTax        Money
+	PromotionDiscount          Money
+	PromotionDiscountTax       Money
 	PromotionIds               PromotionIdList
-	CODFee                     float64
-	CODFeeDiscount             float64
+	CODFee                     Money
+	CODFeeDiscount             Money
 	IsGift                     bool
 	ConditionNote              string
 	ConditionId                string
@@ -62,15 +62,15 @@ func (o *OrderItem) Generalise() *generic.OrderItem {
 		QuantityOrdered:    float64(o.QuantityOrdered),
 		QuantityShipped:    float64(o.QuantityShipped),
 
-		ItemPrice:            o.ItemPrice,
-		ItemTax:              o.ItemTax,
-		PromotionDiscount:    o.PromotionDiscount,
-		PromotionDiscountTax: o.PromotionDiscountTax,
+		ItemPrice:            o.ItemPrice.Amount,
+		ItemTax:              o.ItemTax.Amount,
+		PromotionDiscount:    o.PromotionDiscount.Amount,
+		PromotionDiscountTax: o.PromotionDiscountTax.Amount,
 
-		ShippingPrice:       o.ShippingPrice,
-		ShippingTax:         o.ShippingTax,
-		ShippingDiscount:    o.ShippingDiscount,
-		ShippingDiscountTax: o.ShippingDiscountTax,
+		ShippingPrice:       o.ShippingPrice.Amount,
+		ShippingTax:         o.ShippingTax.Amount,
+		ShippingDiscount:    o.ShippingDiscount.Amount,
+		ShippingDiscountTax: o.ShippingDiscountTax.Amount,
 
 		PromotionIds: strings.Join(o.PromotionIds[:], ","),
 
