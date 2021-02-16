@@ -21,10 +21,10 @@ type Order struct {
 	NumberOfItemsShipped   int
 	NumberOfItemsUnshipped int
 	OrderType              string
-	EarliestShipDate       time.Time
-	LatestShipDate         time.Time
-	EarliestDeliveryDate   time.Time
-	LatestDeliveryDate     time.Time
+	EarliestShipDate       *time.Time
+	LatestShipDate         *time.Time
+	EarliestDeliveryDate   *time.Time
+	LatestDeliveryDate     *time.Time
 	ReplacedOrderId        string
 	IsReplacementOrder     bool
 

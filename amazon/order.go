@@ -69,31 +69,21 @@ type Address struct {
 	AddressType   string
 }
 
+func parseTime(timeStr string) *time.Time {
+	layout := "2006-01-02T15:04:05Z"
+	date, err := time.Parse(layout, timeStr)
+	if err != nil {
+		return nil
+	}
+
+	return &date
+}
+
 func (o *Order) Generalise() *generic.Order {
 	layout := "2006-01-02T15:04:05Z"
 	purchaseDate, err := time.Parse(layout, o.PurchaseDate)
 	if err != nil {
 		purchaseDate = time.Now()
-	}
-
-	earliestShipDate, err := time.Parse(layout, o.EarliestShipDate)
-	if err != nil {
-		earliestShipDate = time.Now()
-	}
-
-	latestShipDate, err := time.Parse(layout, o.LatestShipDate)
-	if err != nil {
-		latestShipDate = time.Now()
-	}
-
-	latestDeliveryDate, err := time.Parse(layout, o.LatestDeliveryDate)
-	if err != nil {
-		latestDeliveryDate = time.Now()
-	}
-
-	earliestDeliveryDate, err := time.Parse(layout, o.EarliestDeliveryDate)
-	if err != nil {
-		earliestDeliveryDate = time.Now()
 	}
 
 	theOrder := &generic.Order{
@@ -108,10 +98,10 @@ func (o *Order) Generalise() *generic.Order {
 		NumberOfItemsShipped:   o.NumberOfItemsShipped,
 		NumberOfItemsUnshipped: o.NumberOfItemsUnshipped,
 		OrderType:              o.OrderType,
-		EarliestShipDate:       earliestShipDate,
-		LatestShipDate:         latestShipDate,
-		LatestDeliveryDate:     latestDeliveryDate,
-		EarliestDeliveryDate:   earliestDeliveryDate,
+		EarliestShipDate:       parseTime(o.EarliestShipDate),
+		LatestShipDate:         parseTime(o.LatestShipDate),
+		LatestDeliveryDate:     parseTime(o.LatestDeliveryDate),
+		EarliestDeliveryDate:   parseTime(o.EarliestDeliveryDate),
 		ReplacedOrderId:        o.ReplacedOrderId,
 		IsReplacementOrder:     o.IsReplacementOrder,
 		PaymentMethod:          o.PaymentMethod,
