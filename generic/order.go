@@ -27,7 +27,7 @@ type Order struct {
 	LatestDeliveryDate     *time.Time
 	ReplacedOrderId        string
 	IsReplacementOrder     bool
-
+	ShipToAddress          *Address
 	PaymentMethod          string
 	PaymentExecutionDetail []PaymentExecutionDetailItem
 }

@@ -39,7 +39,7 @@ type Order struct {
 	PromiseResponseDueDate          string
 	IsEstimatedShipDateSet          bool
 	IsSoldByAB                      bool
-	AssignedShipFromLocationAddress Address
+	DefaultShipFromLocationAddress  Address
 	FulfillmentInstruction          FulfillmentInstruction
 
 	Items							[]OrderItem
@@ -52,22 +52,6 @@ type FulfillmentInstruction struct {
 type PaymentMethodDetailItemList []string
 
 type PaymentExecutionDetailItemList []generic.PaymentExecutionDetailItem
-
-type Address struct {
-	Name          string
-	AddressLine1  string
-	AddressLine2  string
-	AddressLine3  string
-	City          string
-	County        string
-	District      string
-	StateOrRegion string
-	Municipality  string
-	PostalCode    string
-	CountryCode   string
-	Phone         string
-	AddressType   string
-}
 
 func parseTime(timeStr string) *time.Time {
 	layout := "2006-01-02T15:04:05Z"
