@@ -23,6 +23,6 @@ type Address struct {
 type AddressType int
 
 const (
-	Commercial  AddressType = 1
-	Residential AddressType = 2
+	Residential AddressType = iota
+	Commercial
 )
