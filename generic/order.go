@@ -8,7 +8,7 @@ type Order struct {
 	ChannelOrderId         string
 	PurchaseDate           time.Time
 	OrderStatus            string
-	CurrencyCode		   string
+	CurrencyCode           string
 	ItemsTotal             float64
 	ShippingTotal          float64
 	GrandTotal             float64
@@ -27,9 +27,11 @@ type Order struct {
 	LatestDeliveryDate     *time.Time
 	ReplacedOrderId        string
 	IsReplacementOrder     bool
-	ShipToAddress          *Address
 	PaymentMethod          string
 	PaymentExecutionDetail []PaymentExecutionDetailItem
+
+	ShippingAddress *Address
+	BillingAddress  *Address
 }
 
 func (o *Order) AddItem(item OrderItem) {
