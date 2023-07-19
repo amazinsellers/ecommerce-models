@@ -1,6 +1,7 @@
 package amazon
 
 import (
+	"encoding/json"
 	"github.com/amazinsellers/ecommerce-models/generic"
 	"time"
 )
@@ -51,6 +52,16 @@ func (o *Product) Generalise(currencyCode string) *generic.Product {
 			},
 		},
 	}
+}
+
+func (o *ProductArray) Unmarshal(productsStr string) error {
+	err := json.Unmarshal([]byte(productsStr), o)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 type ProductArray []Product
