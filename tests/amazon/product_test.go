@@ -1,4 +1,4 @@
-package tests
+package amazon
 
 import (
 	"encoding/json"
