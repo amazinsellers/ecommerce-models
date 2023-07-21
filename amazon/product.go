@@ -39,7 +39,7 @@ type Product struct {
 	PendingQuantity string `json:"pending-quantity"`
 }
 
-func (o *Product) Generalise(currencyCode string) (*generic.Product, error) {
+func (o *Product) Generalise(customerId string, currencyCode string) (*generic.Product, error) {
 	price, err := strconv.ParseFloat(o.Price, 64)
 
 	if err != nil {
@@ -52,6 +52,7 @@ func (o *Product) Generalise(currencyCode string) (*generic.Product, error) {
 		Title:       o.ItemName,
 		Description: o.ItemDescription,
 		ImageUrls:   o.ImageUrl,
+		CustomerId:  customerId,
 		Prices: []generic.Price{
 			{
 				Amount:   price,
@@ -73,11 +74,11 @@ func (o *ProductArray) Unmarshal(productsStr string) error {
 
 type ProductArray []Product
 
-func (o ProductArray) Generalise(currencyCode string) ([]generic.Product, error) {
+func (o ProductArray) Generalise(customerId string, currencyCode string) ([]generic.Product, error) {
 	genericProducts := make([]generic.Product, 0)
 
 	for _, aProduct := range o {
-		aGenericProduct, err := aProduct.Generalise(currencyCode)
+		aGenericProduct, err := aProduct.Generalise(customerId, currencyCode)
 		if err != nil {
 			return nil, err
 		}

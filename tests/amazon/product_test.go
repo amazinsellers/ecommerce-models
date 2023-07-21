@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestProduct(t *testing.T) {
+func TestProductArrayUnmarshalConvertsToObject(t *testing.T) {
 	file, err := ioutil.ReadFile("./amazon-product.json")
 	if err != nil {
 		t.Error("amazon-product.json file not readable")
